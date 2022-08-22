@@ -1,8 +1,9 @@
 import React from "react";
 import type { NextPage } from "next";
+import { SignUpForm } from "views/auth/sign-up";
 
 const SignUp: NextPage = () => {
-  return <div>Signin</div>;
+  return <SignUpForm />;
 };
 
 export default SignUp;

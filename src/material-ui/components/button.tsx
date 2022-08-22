@@ -17,6 +17,7 @@ export default function MuiButton({
   href,
   onClick,
   loading = false,
+  sx,
   ...rest
 }: MuiButtonProps) {
   const router = useRouter();
@@ -26,6 +27,14 @@ export default function MuiButton({
         loading={loading}
         variant={variant}
         onClick={onClick}
+        sx={{
+          ...sx,
+          boxShadow: "none",
+          ":hover": {
+            boxShadow:
+              "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
+          },
+        }}
         {...rest}
       />
     );
@@ -41,11 +50,32 @@ export default function MuiButton({
         variant={variant}
         {...rest}
         onClick={handleClick}
+        sx={{
+          ...sx,
+          boxShadow: "none",
+          ":hover": {
+            boxShadow:
+              "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
+          },
+        }}
       />
     );
   }
   return (
-    <Button variant={variant} {...rest} onClick={onClick} />
+    <Button
+      variant={variant}
+      {...rest}
+      onClick={onClick}
+      sx={{
+        ...sx,
+        boxShadow:
+          "none",
+        ":hover": {
+          boxShadow:
+            "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
+        },
+      }}
+    />
   );
 }
 

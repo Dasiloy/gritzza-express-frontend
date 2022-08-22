@@ -42,6 +42,8 @@ export const lightPallete: PaletteOptions = {
     secondary: "#00000099",
     disabled: "#00000040",
   },
+  inputBorderColor: "#D2D2D2",
+
   background: {
     paper: "#ffffff",
     default: "#ffffff",
@@ -65,7 +67,7 @@ export const darkPalette: PaletteOptions = {
   primary: {
     main: "#f4b857",
     light: "#f6c26f",
-    dark: "	#f3ae3f",
+    dark: "#f3ae3f",
     contrastText: "#000000de",
   },
   secondary: {
@@ -94,6 +96,7 @@ export const darkPalette: PaletteOptions = {
     disabled: "#ffffff80",
     icon: "#ffffff80",
   },
+  inputBorderColor: "#fff",
   background: {
     paper: "#121212",
     default: "#121212",
@@ -103,3 +106,6 @@ export const darkPalette: PaletteOptions = {
     footer: "#151515",
   },
 };
+
+
+export type ColorPallete = typeof lightPallete | typeof darkPalette;

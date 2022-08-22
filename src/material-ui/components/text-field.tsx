@@ -1,5 +1,7 @@
 import React from "react";
-import TextField ,{TextFieldProps} from "@mui/material/TextField";
+import TextField, {
+  TextFieldProps,
+} from "@mui/material/TextField";
 
 function MuiInput({
   id,
@@ -22,7 +24,7 @@ function MuiInput({
   name,
   children,
   ...rest
-}:TextFieldProps) {
+}: TextFieldProps) {
   return (
     <TextField
       id={id}
@@ -43,7 +45,8 @@ function MuiInput({
       placeholder={placeholder}
       defaultValue={defaultValue}
       autoComplete={autoComplete}
-      {...rest} />
+      {...rest}
+    />
   );
 }
 

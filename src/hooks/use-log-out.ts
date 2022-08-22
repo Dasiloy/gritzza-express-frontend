@@ -1,24 +1,27 @@
 import { useState } from "react";
 import { deleteCookie } from "cookies-next";
+import useAppClientStore from "lib/zustand/store";
+import { toast } from "react-hot-toast";
 
 export default function useLogOut() {
-  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const { setUser } = useAppClientStore();
 
   const logOutUser = async () => {
     setLoading(true);
-    setError(false);
     try {
-     deleteCookie("token")
+      setUser(null);
+      deleteCookie("token");
+      toast.success("You have been logged out");
     } catch (error) {
-      setError(true);
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
   return {
-    error,
     loading,
     logOutUser,
   };

@@ -4,6 +4,6 @@ import Router from "next/router";
 export const signIn = () => {
   return Router.push({
     pathname: "/auth/sign-in",
-    query: { callback: window.location.href },
+    query: { callbackUrl: window.location.href },
   });
 };

@@ -3,7 +3,7 @@ import {
   dehydrate,
   QueryClient,
 } from "@tanstack/react-query";
-import { useGetStores } from "lib/react-query/queries/client/stores/use-get-store";
+import { useGetStores } from "lib/react-query/queries/stores/use-get-store";
 import { NextPage } from "next";
 import { fetchStores } from "api/apiClient-requests/store-fetchers";
 

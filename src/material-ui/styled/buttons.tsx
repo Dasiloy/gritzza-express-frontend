@@ -1,8 +1,22 @@
 import React from "react";
-import { useTheme } from "@mui/material/styles";
+
 import MuiButton, {
   MuiButtonProps,
 } from "material-ui/components/button";
+import { styled } from "@mui/material/styles";
+
+export const StyledtextButton = styled("button")(({ theme }) => ({
+  backgroundColor: "transparent",
+  border: "none",
+  color: theme.palette.primary.main,
+  cursor: "pointer",
+  fontSize: theme.typography.fontSize,
+  fontWeight: theme.typography.fontWeightMedium,
+  "&:hover": {
+    backgroundColor: "transparent",
+    color: theme.palette.primary.dark,
+  },
+}));
 
 export type IMuiButtonProps = MuiButtonProps & {
   icon: React.ReactNode;
@@ -13,19 +27,7 @@ export const ContainedButton = ({
   ...rest
 }: MuiButtonProps) => {
   return (
-    <MuiButton
-      variant={"contained"}
-      {...rest}
-      sx={{
-        ...sx,
-        boxShadow:
-          "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
-        ":hover": {
-          boxShadow:
-            "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
-        },
-      }}
-    />
+    <MuiButton sx={sx} variant={"contained"} {...rest} />
   );
 };
 
@@ -34,19 +36,7 @@ export const OutlinedButton = ({
   ...rest
 }: MuiButtonProps) => {
   return (
-    <MuiButton
-      variant={"outlined"}
-      {...rest}
-      sx={{
-        ...sx,
-        boxShadow:
-          "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
-        ":hover": {
-          boxShadow:
-            "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
-        },
-      }}
-    />
+    <MuiButton sx={sx} variant={"outlined"} {...rest} />
   );
 };
 
@@ -56,79 +46,16 @@ export const TextButton = ({
 }: MuiButtonProps) => {
   return (
     <MuiButton
-      variant={"text"}
-      {...rest}
+      disableRipple
       sx={{
         ...sx,
-        boxShadow:
-          "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
         ":hover": {
-          boxShadow:
-            "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
+          backgroundColor: "transparent !important",
+          boxShadow: "none",
         },
       }}
+      variant={"text"}
+      {...rest}
     />
-  );
-};
-
-export const OutlinedButtonWithIconStart = ({
-  icon,
-  size = "small",
-  children,
-  ...rest
-}: IMuiButtonProps) => {
-  const theme = useTheme();
-  return (
-    <MuiButton
-      variant="outlined"
-      startIcon={icon}
-      size={size}
-      sx={{
-        color: "text.primary",
-        fontSize: "0.85rem !important",
-        fontWeight: 600,
-        borderColor: theme.palette.divider,
-        boxShadow:
-          "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
-        "&: hover": {
-          color: theme.palette.primary.main,
-          boxShadow:
-            "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
-        },
-      }}
-      {...rest}>
-      {children}
-    </MuiButton>
-  );
-};
-
-export const OutlinedButtonWithIconEnd = ({
-  icon,
-  size = "small",
-  children,
-  ...rest
-}: IMuiButtonProps) => {
-  const theme = useTheme();
-  return (
-    <MuiButton
-      variant="outlined"
-      endIcon={icon}
-      size={size}
-      sx={{
-        color: "text.primary",
-        fontSize: "0.85rem !important",
-        fontWeight: 600,
-        borderColor: theme.palette.divider,
-        boxShadow:
-          "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
-        "&: hover": {
-          color: theme.palette.primary.main,
-          boxShadow:
-            "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06), 0px 1px 1px rgba(0, 0, 0, 0.08)",
-        },
-      }}
-      {...rest}>
-      {children}
-    </MuiButton>
   );
 };

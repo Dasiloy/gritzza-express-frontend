@@ -10,6 +10,12 @@ import { AppRoot } from "components/root/app-root";
 import ProtectedRoute from "components/root/protected-route";
 import type { IAuth } from "types/auth";
 
+//==> react hot toast base component
+import AppToaster from "components/root/toast-container";
+
+//==> next js progress bar for navigation
+import NextNProgress from "nextjs-progressbar";
+
 // ===> Fonts
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -47,20 +53,24 @@ function MyApp({ Component, pageProps }: AppPropExtra) {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <AppRoot>
-          {Component.auth ? (
-            <ProtectedRoute>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <AppRoot>
+            <AppToaster />
+            <NextNProgress color="#f3ae3f" />
+            {Component.auth ? (
+              <ProtectedRoute>
+                <Component {...pageProps} />
+              </ProtectedRoute>
+            ) : (
               <Component {...pageProps} />
-            </ProtectedRoute>
-          ) : (
-            <Component {...pageProps} />
-          )}
-        </AppRoot>
-      </Hydrate>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+            )}
+          </AppRoot>
+        </Hydrate>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </>
   );
 }
 

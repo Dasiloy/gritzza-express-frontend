@@ -42,15 +42,15 @@ export function AppRoot({ children }: AppRootProps) {
     <ThemeProvider
       theme={getTheme(themeMode, themeToggler)}>
       <CssBaseline />
-      <MuiPaper
-        elevation={0}
-        sx={{
-          flex: 1,
-          width: "100%",
-          minHeight: "100vh",
-        }}>
-        {children}
-      </MuiPaper>
+        <MuiPaper
+          elevation={0}
+          sx={{
+            flex: 1,
+            width: "100%",
+            minHeight: "100vh",
+          }}>
+          {children}
+        </MuiPaper>
     </ThemeProvider>
   );
 }

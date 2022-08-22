@@ -4,6 +4,7 @@ import Typography, { TypographyProps } from "@mui/material/Typography";
 export default function MuiTypography({
   gutterBottom,
   variant,
+  children,
   ...rest
 }:TypographyProps) {
   return (
@@ -11,6 +12,8 @@ export default function MuiTypography({
       gutterBottom={gutterBottom}
       variant={variant}
       {...rest}
-    />
+    >
+      {children}
+    </Typography>
   );
 }

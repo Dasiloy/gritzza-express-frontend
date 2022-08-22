@@ -1,23 +1,33 @@
-import { useState } from "react";
-import apiClient from "api/api-client";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import authClient from "api/auth-client";
 import {
   LoginResponseData,
   LoginUserDto,
   TokenUser,
 } from "types/auth";
 import { setCookie } from "cookies-next";
+import useAppClientStore from "lib/zustand/store";
+import { FormikHelpers } from "formik";
+import { UserRole } from "types/auth";
+import { toast } from "react-hot-toast";
 
 export default function useLogIn() {
-  const [error, setError] = useState(false);
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState<TokenUser | null>(null);
 
-  const logInUser = async (loginUserDto: LoginUserDto) => {
+  const { setCallbackUrl, callbackUrl, setUser } =
+    useAppClientStore();
+
+  const logInUser = async (
+    loginUserDto: LoginUserDto,
+    formikHelpers: FormikHelpers<LoginUserDto>
+  ) => {
     setLoading(true);
-    setError(false);
     try {
-      const response = await apiClient.post(
-        "/auth/signin",
+      const redirectUrl = callbackUrl;
+      const response = await authClient.post(
+        "/signin",
         loginUserDto
       );
       const data = response.data as LoginResponseData;
@@ -25,18 +35,44 @@ export default function useLogIn() {
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
       });
-      setUser(data.user);
-    } catch (error) {
-      setError(true);
-      setUser(null);
+      const user = data.user as TokenUser;
+      setUser(user);
+      formikHelpers.resetForm();
+      toast.success("Logged in successfully");
+      if (callbackUrl) {
+        router.push(redirectUrl);
+        setCallbackUrl("");
+      } else {
+        // use user role to determine where to redirect to
+        switch (user.role) {
+          case UserRole.ADMIN:
+            return router.push("/admin");
+          case UserRole.USER:
+            return router.push("/stores");
+          case UserRole.MERCHANT:
+            return router.push("/merchant/store");
+          default:
+            return router.push("/");
+        }
+      }
+    } catch (error: any) {
+      const message =
+        error.response.data.message ||
+        "Something went wrong";
+      toast.error(message);
     } finally {
       setLoading(false);
     }
   };
 
+  React.useEffect(() => {
+    const callbackUrl = router.query.callbackUrl || "";
+    if (callbackUrl) {
+      setCallbackUrl(callbackUrl as string);
+    }
+  }, [router.query]);
+
   return {
-    user,
-    error,
     loading,
     logInUser,
   };

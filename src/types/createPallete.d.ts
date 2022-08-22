@@ -30,6 +30,22 @@ declare module "@mui/material/styles/createPalette" {
       yellow: [string, string];
       red: [string, string];
     };
+
+    primary: {
+      light: string;
+      main: string;
+      dark: string;
+      contrastText: string;
+    }
+
+    secondary: {
+      light: string;
+      main: string;
+      dark: string;
+      contrastText: string;
+    }
+
+    inputBorderColor: string;
   }
 
   interface Palette {
@@ -44,5 +60,21 @@ declare module "@mui/material/styles/createPalette" {
       yellow: [string, string];
       red: [string, string];
     };
+
+    primary: {
+      light: string;
+      main: string;
+      dark: string;
+      contrastText: string;
+    };
+
+    secondary: {
+      light: string;
+      main: string;
+      dark: string;
+      contrastText: string;
+    };
+
+    inputBorderColor: string;
   }
 }

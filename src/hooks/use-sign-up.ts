@@ -1,41 +1,48 @@
 import { useState } from "react";
-import apiClient from "api/api-client";
+import authClient from "api/auth-client";
 import {
   CreateUserDto,
   SignupResponseData,
 } from "types/auth";
 import { deleteCookie } from "cookies-next";
+import { FormikHelpers } from "formik";
+import { ISignUpValues } from "views/auth/sign-up";
+import { toast } from "react-hot-toast";
+import useAppClientStore from "lib/zustand/store";
 
 export default function useSignup() {
-  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] =
-    useState<SignupResponseData | null>(null);
+  const { setTempUser, tempUser } =
+    useAppClientStore();
 
   const signUpUser = async (
-    createUserDto: CreateUserDto
+    createUserDto: CreateUserDto,
+    formikHelpers: FormikHelpers<ISignUpValues>
   ) => {
     setLoading(true);
-    setError(false);
     try {
-      const response = await apiClient.post(
-        "/auth/signup",
+      const response = await authClient.post(
+        "/signup",
         createUserDto
       );
-      const data = response.data as SignupResponseData;
+      const user = response.data as SignupResponseData;
       deleteCookie("token");
-      setUser(data);
-    } catch (error) {
-      setError(true);
-      setUser(null);
+      setTempUser(user);
+      formikHelpers.resetForm();
+      toast.success("Successfully signed up");
+    } catch (error: any) {
+      setTempUser(null);
+      const message =
+        error?.response?.data?.message ||
+        "Something went wrong";
+      toast.error(message);
     } finally {
       setLoading(false);
     }
   };
 
   return {
-    user,
-    error,
+    user: tempUser,
     loading,
     signUpUser,
   };
