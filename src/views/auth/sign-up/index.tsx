@@ -14,6 +14,8 @@ import { HeadingFour,SubBody} from "material-ui/styled/typography";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import MuiIconButton from "material-ui/components/icon-button";
 import { capitalize } from "lodash";
+import MuiStack from "material-ui/components/stack";
+import BaseLink from "components/general/base-link";
 
 
 export interface ISignUpValues {
@@ -91,6 +93,7 @@ export const SignUpForm = () => {
 
   return (
     <AuthLayout
+      addSpacing={false}
       title="Register with G-express"
       onSubmit={handleSubmit}>
       <RoleChooser role={role} selectRole={chooseRole} />
@@ -136,14 +139,24 @@ export const SignUpForm = () => {
       <ContainedButton
         type="submit"
         loading={loading}
-        disabled={disabled}
+        // disabled={disabled}
         fullWidth
         sx={{
-          marginTop: "1rem",
           marginBottom: "1rem",
         }}>
         Sign Up
       </ContainedButton>
+      <MuiStack
+        direction="row"
+        spacing={1}
+        justifyContent="center"
+        alignItems="baseline"
+        mt={1}>
+        <SubBody gutterBottom={false} mb={0}>
+          Already have an account?
+        </SubBody>
+        <BaseLink href="/auth/sign-in" text="Login" />
+      </MuiStack>
     </AuthLayout>
   );
 };

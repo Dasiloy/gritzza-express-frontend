@@ -15,7 +15,13 @@ export default function RoleChooser({
   selectRole,
 }: IRoleChooserProps) {
   return (
-    <MuiGrid container spacing={1} marginBottom={4}>
+    <MuiGrid
+      container
+      spacing={{
+        xs: 2,
+        sm: 4,
+      }}
+      marginBottom={2}>
       <RoleButton
         role={UserRole.USER}
         selectRole={selectRole}

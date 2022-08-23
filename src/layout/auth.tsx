@@ -3,12 +3,16 @@ import { styled } from "@mui/material";
 import MuiBox from "material-ui/components/box";
 import { HeadingThree } from "material-ui/styled/typography";
 import type { IFormEvent } from "types/event-types";
+import MuiGrid from "material-ui/components/grid";
+import BaseImage from "components/root/base-image";
+import assets from "assets";
 
 export interface IAuthLayoutProps {
   children: React.ReactNode;
   title: string;
   onSubmit?: (event: IFormEvent) => void;
   center?: boolean;
+  addSpacing?: boolean;
 }
 
 const PageContainer = styled(MuiBox)(({ theme }) => ({
@@ -17,51 +21,97 @@ const PageContainer = styled(MuiBox)(({ theme }) => ({
       ? theme.palette.background.level3
       : theme.palette.background.paper,
   flex: 1,
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "start",
   minHeight: "100vh",
-  padding: theme.spacing(6, 2),
+  padding: theme.spacing(4, 2),
+  [theme.breakpoints.up("sm")]: {
+    padding: theme.spacing(8, 2),
+  },
   [theme.breakpoints.up("md")]: {
-    padding: theme.spacing(10, 0),
+    height: "100vh",
+    overflow: "hidden",
+  },
+  [theme.breakpoints.up("lg")]: {
+    padding: theme.spacing(10, 2),
   },
 }));
 
 const FormContainer = styled("form")(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === "light"
-      ? theme.palette.background.paper
-      : theme.palette.background.level1,
-  boxShadow: theme.shadows[1],
-  marginX: "auto",
-  padding: theme.spacing(4, 3),
-  width: "100%",
-  maxWidth: 480,
-  minHeight:400,
-  [theme.breakpoints.up("md")]: {
-    padding: theme.spacing(4, 6),
+  width: "95%",
+  marginLeft: "auto",
+  marginRight: "auto",
+  [theme.breakpoints.up("sm")]: {
+    maxWidth: "90%",
   },
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    maxWidth: "80%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    maxWidth: 1000,
+  },
 }));
 
 export default function AuthLayout({
   title,
   children,
-  onSubmit = (e: IFormEvent) => { },
+  onSubmit = (e: IFormEvent) => {},
   center = false,
+  addSpacing = true,
 }: IAuthLayoutProps) {
   return (
     <PageContainer>
       <FormContainer onSubmit={onSubmit}>
-        <HeadingThree
-          textAlign={center ? "center" : "left"}
-          gutterBottom
-          sx={{
-            marginBottom: "2rem",
+        <MuiGrid
+          container
+          spacing={{
+            xs: 2,
+            sm: 4,
+            md: 6,
           }}>
-          {title}
-        </HeadingThree>
-        {children}
+          <MuiGrid xs={12} sm={6} item>
+            <HeadingThree
+              textAlign={center ? "center" : "left"}
+              gutterBottom
+              display={{
+                sm: "none",
+              }}>
+              {title}
+            </HeadingThree>
+            <BaseImage
+              src={assets.AuthImage}
+              alt="sign-up-screen-image"
+            />
+          </MuiGrid>
+          <MuiGrid
+            xs={12}
+            sm={6}
+            md={6}
+            lg={5}
+            mx="auto"
+            mt={
+              addSpacing
+                ? {
+                    sm: 2,
+                    md: 4,
+                    lg: 6,
+                  }
+                : {}
+            }
+            item>
+            <HeadingThree
+              textAlign={center ? "center" : "left"}
+              gutterBottom
+              display={{
+                xs: "none",
+                sm: "block",
+              }}
+              sx={{
+                marginBottom: "2rem",
+              }}>
+              {title}
+            </HeadingThree>
+            {children}
+          </MuiGrid>
+        </MuiGrid>
       </FormContainer>
     </PageContainer>
   );

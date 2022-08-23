@@ -12,7 +12,6 @@ apiClient.interceptors.request.use(
     // attach bearere token to request header if we have it
 
     const token = getCookie("token");
-    console.log("token", token);
     if (token) {
       config.headers!.Authorization = `Bearer ${token}`;
     }

@@ -22,6 +22,10 @@ export interface LoginUserDto {
   password: string;
 }
 
+export interface ForgotPasswordDto {
+  email: string;
+}
+
 export interface LoginResponseData {
   token: string;
   user: TokenUser;

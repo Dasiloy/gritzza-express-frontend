@@ -71,17 +71,20 @@ export const createTypography = (
       fontFamily: '"Open Sans",sans-serif',
       color: basePalette.text?.primary,
       fontWeight: 400,
+      fontSize: "1rem",
     },
     body2: {
       fontFamily: '"Open Sans",sans-serif',
       color: basePalette.text?.secondary,
       fontWeight: 400,
+      fontSize: "0.875rem",
     },
     button: {
       fontFamily: '"Open Sans",sans-serif',
       textTransform: "capitalize",
       letterSpacing: "0.03rem",
       fontWeight: 500,
+      fontSize: "0.875rem",
     },
   };
 };

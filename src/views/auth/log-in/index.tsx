@@ -7,11 +7,9 @@ import disablehandler from "utils/form-button-diasble-util";
 import TextInput from "components/forms/text-input";
 import PasswordInput from "components/forms/password-input";
 import { ContainedButton } from "material-ui/styled/buttons";
-import {
-  HeadingFour,
-  SubBody,
-} from "material-ui/styled/typography";
-import { capitalize } from "lodash";
+import MuiStack from "material-ui/components/stack";
+import { SubBody } from "material-ui/styled/typography";
+import BaseLink from "components/general/base-link";
 
 const initialValues = {
   identifier: "",
@@ -42,7 +40,7 @@ export default function LogInForm() {
       onSubmit={handleSubmit}>
       <TextInput
         fullWidth
-        label="Username"
+        label="Username or Email"
         name="identifier"
         size="small"
         variant="filled"
@@ -50,7 +48,9 @@ export default function LogInForm() {
         value={values.identifier}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={touched.identifier && Boolean(errors.identifier)}
+        error={
+          touched.identifier && Boolean(errors.identifier)
+        }
         helperText={touched.identifier && errors.identifier}
       />
       <PasswordInput
@@ -66,17 +66,36 @@ export default function LogInForm() {
         error={touched.password && Boolean(errors.password)}
         helperText={touched.password && errors.password}
       />
+      <MuiStack
+        direction="row"
+        spacing={1}
+        justifyContent="flex-end"
+        alignItems="center"
+        mt={-3}
+        mb={3}>
+        <BaseLink href="/auth/forgot-password" text="Forgot password?" />
+      </MuiStack>
       <ContainedButton
         type="submit"
         loading={loading}
-        disabled={disabled}
+        // disabled={disabled}
         fullWidth
         sx={{
-          marginTop: "1rem",
           marginBottom: "1rem",
         }}>
         Log in
       </ContainedButton>
+      <MuiStack
+        direction="row"
+        spacing={1}
+        justifyContent="center"
+        alignItems="baseline"
+        mt={1}>
+        <SubBody gutterBottom={false} mb={0}>
+          Not registered?
+        </SubBody>
+        <BaseLink href="/auth/sign-up" text="Create an account" />
+      </MuiStack>
     </AuthLayout>
   );
 }
